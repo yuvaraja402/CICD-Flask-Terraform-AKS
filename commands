@@ -1,0 +1,9 @@
+Local Mac Workflow commands that worked --
+
+docker build -t flaskverapp:v1 .
+
+docker tag flaskverapp:v1 cyberprince/flaskverapp:v1
+
+docker login
+
+docker push cyberprince/flaskverapp:v1

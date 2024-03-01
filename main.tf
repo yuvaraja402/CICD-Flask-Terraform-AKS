@@ -39,10 +39,23 @@ resource "azurerm_kubernetes_cluster" "AKS" {
   }
 }
 
+# Execute commands after AKS creation
+resource "null_resource" "aks_commands" {
+  depends_on = [azurerm_kubernetes_cluster.AKS]
 
-# recieve all outputs of creation above
-# AKS name, version, pods running
+  provisioner "local-exec" {
+    command = <<-EOT
+      kubectl create namespace production
+      kubectl -n production create deployment hello-flaskapp --image=cyberprince/flaskverapp:v1 --port=5050
+      kubectl -n production expose deployment hello-flaskapp --type=LoadBalancer --port=5050 --target-port=5050
+      kubectl -n production get deployments
+      kubectl -n production get services
+      kubectl get nodes -o wide
+    EOT
+  }
+}
 
+# Output AKS details
 output "aks_name" {
   value = azurerm_kubernetes_cluster.AKS.name
 }
@@ -50,20 +63,8 @@ output "aks_name" {
 output "aks_kubernetes_version" {
   value = azurerm_kubernetes_cluster.AKS.kubernetes_version
 }
+
 data "azurerm_kubernetes_cluster" "AKS" {
   name                = azurerm_kubernetes_cluster.AKS.name
   resource_group_name = azurerm_kubernetes_cluster.AKS.resource_group_name
-}
-
-resource "null_resource" "fetch_pods" {
-  provisioner "local-exec" {
-    command = <<-EOF
-      kubectl get pods --all-namespaces --field-selector=status.phase=Running --output=json | jq '.items | length'
-    EOF
-
-    interpreter = ["bash", "-c"]
-  }
-}
-output "number_of_pods" {
-  value = null_resource.fetch_pods.triggers
 }

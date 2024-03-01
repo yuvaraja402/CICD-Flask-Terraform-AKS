@@ -1,0 +1,30 @@
+name: Deploying DockerHub image to run on Azure Kubernetes Service
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Update GitHub runner
+        run: sudo apt-get update -y && sudo apt-get upgrade -y
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Start Terraform
+        run: |
+          terraform init
+          terraform validate
+          terraform fmt
+
+      - name: Create infrastructure
+        run: terraform apply -auto-approve

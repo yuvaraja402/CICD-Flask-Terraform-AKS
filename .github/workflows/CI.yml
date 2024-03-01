@@ -15,7 +15,7 @@ jobs:
 
       # Update GitHub Actions runner
       - name: Update GitHub runner
-        run: sudo apt-get update && sudo apt-get upgrade -y
+        run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       # Build Docker image
       - name: Build Docker image
@@ -25,11 +25,9 @@ jobs:
       - name: Tag Docker image
         run: docker tag flaskverapp:v1 cyberprince/flaskverapp:v1
 
-      # Login to Docker Hub
+      # Login to Docker Hub using authentication token
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        # Done adding the secrets to GitHub repository secrets section
-
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       # Push Docker image to Docker Hub
       - name: Push Docker image to Docker Hub

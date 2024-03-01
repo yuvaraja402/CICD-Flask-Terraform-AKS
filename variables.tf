@@ -1,10 +1,7 @@
 variable "client_id" {
-  description = "Client ID for the Azure service principal"
-  type        = string
+  description = "Azure service principal client ID"
 }
 
 variable "client_secret" {
-  description = "Client secret for the Azure service principal"
-  type        = string
-  sensitive   = true
+  description = "Azure service principal client secret"
 }

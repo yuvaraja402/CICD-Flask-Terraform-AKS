@@ -1,0 +1,25 @@
+# Local Mac Workflow commands that worked --
+
+    docker build -t flaskverapp:v1 .
+
+    docker tag flaskverapp:v1 cyberprince/flaskverapp:v1
+
+    docker login
+
+    docker push cyberprince/flaskverapp:v1
+
+# to create multi-platform images
+
+    docker buildx create --use
+
+    docker buildx build --platform linux/arm64,linux/amd64 --push -t cyberprince/flaskverapp:v1 .
+
+
+# next is terraform
+
+    #install the terraform 
+
+    terraform init
+    terraform get
+    terraform validate
+    terraform fmt

@@ -46,7 +46,7 @@ resource "null_resource" "aks_commands" {
   provisioner "local-exec" {
     command = <<-EOT
       kubectl create namespace production
-      kubectl -n production create deployment hello-flaskapp --image=cyberprince/flaskverapp:v1 --port=5050
+      kubectl -n production create deployment hello-flaskapp --image=cyberprince/flaskverapp:latest --port=5050
       kubectl -n production expose deployment hello-flaskapp --type=LoadBalancer --port=5050 --target-port=5050
       kubectl -n production get deployments
       kubectl -n production get services

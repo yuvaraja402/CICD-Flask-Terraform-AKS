@@ -43,8 +43,8 @@ jobs:
 
       - name: Set Terraform input variables
         run: |
-          echo "##[set-output name=client_id;]${{ secrets.CLIENT_ID }}"
-          echo "##[set-output name=client_secret;]${{ secrets.CLIENT_SECRET }}"
+          echo "export TF_VAR_client_id=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
+          echo "export TF_VAR_client_secret=${{ secrets.CLIENT_SECRET }}" >> $GITHUB_ENV
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1

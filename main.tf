@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "RG" {
-  name     = "flask-terraform-deployment"
+  name     = "CICD-terraform-deployment"
   location = "southindia"
 }
 

@@ -43,8 +43,8 @@ jobs:
 
       - name: Set Terraform input variables
         run: |
-          echo "export TF_VAR_client_id=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
-          echo "export TF_VAR_client_secret=${{ secrets.CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "##[set-output name=client_id;]${{ secrets.CLIENT_ID }}"
+          echo "##[set-output name=client_secret;]${{ secrets.CLIENT_SECRET }}"
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1
@@ -55,5 +55,8 @@ jobs:
           terraform validate
           terraform fmt
 
-      - name: Create infrastructure
+      - name: Terraform Apply
         run: terraform apply -auto-approve
+        env:
+          ARM_CLIENT_ID: ${{ secrets.YOUR_CLIENT_ID_SECRET_NAME }}
+          ARM_CLIENT_SECRET: ${{ secrets.YOUR_CLIENT_SECRET_SECRET_NAME }}

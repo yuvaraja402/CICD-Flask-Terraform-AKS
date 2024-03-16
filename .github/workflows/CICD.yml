@@ -38,13 +38,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Update GitHub runner
-        run: sudo apt-get update -y && sudo apt-get upgrade -y
-
-      - name: Set Terraform input variables
-        run: |
-          echo "##[set-output name=client_id;]${{ secrets.CLIENT_ID }}"
-          echo "##[set-output name=client_secret;]${{ secrets.CLIENT_SECRET }}"
+      #- name: Update GitHub runner
+      #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v1

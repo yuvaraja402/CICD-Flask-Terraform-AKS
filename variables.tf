@@ -5,6 +5,3 @@ variable "client_id" {
 variable "client_secret" {
   description = "The client secret for the Azure service principal."
 }
-
-
-#asdsadasd

@@ -20,8 +20,8 @@ jobs:
       #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       # Login to Docker Hub using authentication token
-      #- name: Login to Docker Hub
-      #  run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ vars.DOCKER_USERNAME }}" --password-stdin
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ vars.DOCKER_USERNAME }}" --password-stdin
 
       # Build Docker image and push
       #- name: Build Docker image and push

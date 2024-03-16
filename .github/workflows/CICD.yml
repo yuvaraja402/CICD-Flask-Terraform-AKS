@@ -12,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      #- name: Checkout code
+      #  uses: actions/checkout@v2
 
       # Update GitHub Actions runner
-      - name: Update GitHub runner
-        run: sudo apt-get update -y && sudo apt-get upgrade -y
+      #- name: Update GitHub runner
+      #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       # Login to Docker Hub using authentication token
-      - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ vars.DOCKER_USERNAME }}" --password-stdin
+      #- name: Login to Docker Hub
+      #  run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ vars.DOCKER_USERNAME }}" --password-stdin
 
       # Build Docker image and push
-      - name: Build Docker image and push
-        run: docker buildx create --use && docker buildx build --platform linux/arm64,linux/amd64 --push -t cyberprince/flaskverapp:v1 .
+      #- name: Build Docker image and push
+      #  run: docker buildx create --use && docker buildx build --platform linux/arm64,linux/amd64 --push -t cyberprince/flaskverapp:v1 .
 
 
 # Deploying DockerHub image to run on Azure Kubernetes Service
@@ -58,5 +58,5 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         env:
-          ARM_CLIENT_ID: ${{ secrets.YOUR_CLIENT_ID_SECRET_NAME }}
-          ARM_CLIENT_SECRET: ${{ secrets.YOUR_CLIENT_SECRET_SECRET_NAME }}
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}

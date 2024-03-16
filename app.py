@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def root():
-    return jsonify(message="Welcome to Python-Flask-API versioning app!")
+    return jsonify(message="Welcome to Python-Flask versioning API!")
 
 @app.route('/version1', methods=['GET'])
 def version1():

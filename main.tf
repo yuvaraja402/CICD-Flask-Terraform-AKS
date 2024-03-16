@@ -45,26 +45,16 @@ resource "null_resource" "aks_commands" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      kubectl create namespace production
-      kubectl -n production create deployment hello-flaskapp --image=cyberprince/flaskverapp:latest --port=5050
-      kubectl -n production expose deployment hello-flaskapp --type=LoadBalancer --port=5050 --target-port=5050
-      kubectl -n production get deployments
-      kubectl -n production get services
+      sleep 120 # Wait for 1 minute to ensure AKS is fully initialized
+      kubectl create namespace dev || true # Ignore error if namespace already exists
+      sleep 10
+      kubectl -n dev create deployment flaskapp --image=cyberprince/flaskverapp:v1 --port=5050
+      sleep 30
+      kubectl -n dev expose deployment flaskapp --type=LoadBalancer --port=5050 --target-port=5050
+      sleep 60
+      kubectl -n dev get deployments
+      kubectl -n dev get services
       kubectl get nodes -o wide
     EOT
   }
-}
-
-# Output AKS details
-output "aks_name" {
-  value = azurerm_kubernetes_cluster.AKS.name
-}
-
-output "aks_kubernetes_version" {
-  value = azurerm_kubernetes_cluster.AKS.kubernetes_version
-}
-
-data "azurerm_kubernetes_cluster" "AKS" {
-  name                = azurerm_kubernetes_cluster.AKS.name
-  resource_group_name = azurerm_kubernetes_cluster.AKS.resource_group_name
 }

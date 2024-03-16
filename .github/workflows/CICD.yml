@@ -42,7 +42,7 @@ jobs:
       #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       - name: Install Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
 
       - name: Start Terraform
         run: |

@@ -41,6 +41,12 @@ jobs:
       #- name: Update GitHub runner
       #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+
       # Using wrapper as per Terraform Team's issue thread suggestion
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
@@ -55,4 +61,4 @@ jobs:
           terraform fmt
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var="client_id=${{ secrets.CLIENT_ID }}" -var="client_secret=${{ secrets.CLIENT_SECRET }}"
+        run: terraform apply -auto-approve

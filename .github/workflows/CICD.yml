@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Update GitHub Actions runner
       #- name: Update GitHub runner
@@ -36,13 +36,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       #- name: Update GitHub runner
       #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
+      # Using wrapper as per Terraform Team's issue thread suggestion
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
 
       - name: Start Terraform
         run: |

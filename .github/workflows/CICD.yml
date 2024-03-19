@@ -58,3 +58,6 @@ jobs:
         run: terraform apply -auto-approve \
           -var="client_id=${{ secrets.CLIENT_ID }}" \
           -var="client_secret=${{ secrets.CLIENT_SECRET }}"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var="client_id=${{ secrets.CLIENT_ID }}" -var="client_secret=${{ secrets.CLIENT_SECRET }}"

@@ -42,7 +42,7 @@ jobs:
       #  run: sudo apt-get update -y && sudo apt-get upgrade -y
 
       - name: Azure Login
-        uses: azure/login@v3
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 

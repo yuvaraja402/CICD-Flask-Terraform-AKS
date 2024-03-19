@@ -55,7 +55,6 @@ jobs:
           terraform fmt
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-        env:
-          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: terraform apply -auto-approve \
+          -var="client_id=${{ secrets.CLIENT_ID }}" \
+          -var="client_secret=${{ secrets.CLIENT_SECRET }}"
